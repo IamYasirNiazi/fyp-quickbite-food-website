@@ -164,6 +164,14 @@ const Header = () => {
   console.log("User Password successfully changed.", result)
 
   }
+
+
+
+  const activeMenu = ()=>{
+    const profile_icon = document.getElementById("profile-icon")
+    const profile_sub_menu = document.getElementById("profile-sub-menu")
+    profile_sub_menu.classList.toggle("submenu-active")
+  }
     
 
 
@@ -192,7 +200,7 @@ const Header = () => {
                                 Contact
                             </li>
                         </ul> */}
-                        <ul>
+                        <ul className='nav-links'>
                             <li>
                               <NavLink href='/#header-section'>
                                 Home
@@ -222,9 +230,17 @@ const Header = () => {
                         </ul>
                         <div>
                             {/* {currentUser.email && <h6>Hi, {(currentUser.email).charAt(0).toUpperCase() + (currentUser.email).slice(1).toLowerCase()}</h6>} */}
-                            {currentUser.name && <h6>Hi, {(currentUser.name).charAt(0).toUpperCase() + (currentUser.name).slice(1).toLowerCase()}</h6>}
+                            {/* {currentUser.name && <h6>Hi, {(currentUser.name).charAt(0).toUpperCase() + (currentUser.name).slice(1).toLowerCase()}</h6>} */}
+                            { currentUser.email && <div className="profile">
+                              <i className="ri-user-line profile-icon" id="profile-icon" onClick={activeMenu}></i>
+                              <ul className='submenu' id='profile-sub-menu'>
+                                <li><Link to={`/profile`}>Profile</Link></li>
+                                <li><Link to={`/history`}>History</Link></li>
+                                {/* <li>Logout</li> */}
+                              </ul>
+                            </div>}
                             {/* <i className="ri-search-line search"></i> */}
-                            <div>
+                            <div className='cart-and-notify'>
                               <i className="ri-shopping-bag-line cart" onClick={toggleCart}></i>
                               <span className='notify'>{cartQuantityLocalStorage}</span>
                             </div>

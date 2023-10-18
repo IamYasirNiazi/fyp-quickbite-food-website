@@ -97,7 +97,7 @@ const ProductDetail = () => {
         filteredData.map((data)=>{
           return <Container>
               <div className="heading">
-                <h3>Product Detail</h3>
+                {/* <h3>Product Detail</h3> */}
                 {/* <h6>POPULAR PRODUCTS</h6> */}
               </div>
 

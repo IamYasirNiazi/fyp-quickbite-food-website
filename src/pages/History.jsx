@@ -1,15 +1,15 @@
 import React from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import ProductDetail from '../components/ProductDetail'
 import Carts from '../components/Carts'
 import { useSelector } from 'react-redux'
 import TitleSection from '../components/TitleSection'
+import UserHistory from '../components/UserHistory'
 
 
-const ProductDetails = (props) => {
+const History = () => {
 
-  const { title } = props;
+  // const { title } = props;
 
   const isVisible = useSelector((state)=> state.cartUi.cartIsVisible)
 
@@ -19,11 +19,11 @@ const ProductDetails = (props) => {
         {
           isVisible && <Carts />
         }
-        <TitleSection title="Product Details" />
-        <ProductDetail />
+        <TitleSection title="History" />
+        <UserHistory />
         <Footer />
     </>
   )
 }
 
-export default ProductDetails
+export default History

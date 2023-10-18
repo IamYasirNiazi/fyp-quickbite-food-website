@@ -14,7 +14,7 @@ const Hero = () => {
 
               <Col className="hero__container__row__col1 col col-md-6 col-lg-6">
                 <div className="hero__container__row__col1__main-wrapper">
-                  <h6 className='top-on-heading'>More Than Faster <span><i class="ri-truck-fill"></i></span></h6>
+                  <h6 className='top-on-heading'>Cash On Delivery <span><i class="ri-truck-fill"></i></span></h6>
                   {/* <h1>Be The Fastest In Delivering Your <span>Food</span></h1> */}
                   <h1>The Spicy and Delicious Pizza in Your <span>Town</span></h1>
                   <p>Our job is to filling you tummy with delicious food and with fast and free delivery.</p>
