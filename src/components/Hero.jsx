@@ -19,7 +19,7 @@ const Hero = () => {
                   <h1>The Spicy and Delicious Pizza in Your <span>Town</span></h1>
                   <p>Our job is to filling you tummy with delicious food and with fast and free delivery.</p>
                   <div>
-                    <button className='btn get-started'>Order Now</button>
+                    <a href="#trending" className='btn get-started'>Order Now</a>
                     {/* <span><i class="ri-play-fill watch-video"></i><span className='watch-text'>Watch Video</span></span> */}
                   </div>
 

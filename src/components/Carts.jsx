@@ -43,7 +43,7 @@ const Carts = () => {
         <div>
           <h6>
             {/* Subtotal : <span>${cartProductsPrice}</span> */}
-            Subtotal : <span>${getLocalTotalPrice}</span>
+            Subtotal : <span>Rs. {getLocalTotalPrice}</span>
           </h6>
         </div>
         <Link to={`/checkout`} className="btn">

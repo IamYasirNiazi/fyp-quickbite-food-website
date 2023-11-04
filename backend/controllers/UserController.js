@@ -10,13 +10,13 @@ const registerUser = asyncHandler( async (req, res)=>{
 
     if( !fname || !lname || !email || !password){
         res.status(400)
-        throw new Error("All fields are mandatory")
+        throw new Error({ message : "All fields are mandatory"})
     }
 
     const userAvailable = await User.findOne({email})
 
     if(userAvailable){
-        res.status(400)
+        res.status(409)
         throw new Error("This user already exists")
     }
     
@@ -31,7 +31,7 @@ const registerUser = asyncHandler( async (req, res)=>{
     })
 
     res.status(201)
-    res.send(`User created Successfully. User Email is ${user.email}`)
+    res.send("User Created Successfully.")
 
     if(!user){
         res.send(400)
@@ -58,7 +58,7 @@ const loginUser = asyncHandler( async (req, res)=>{
 
     // if(!userAvailable || !(await bcrypt.compare(password, userAvailable.password)) ){
     if(!userAvailable || !(userAvailable.password === password) ){
-        res.status(400)
+        res.status(401)
         throw new Error("Email or Password is wrong.")
     }else{
 
@@ -97,10 +97,10 @@ const forgetPass = asyncHandler( async (req, res)=>{
 
     // if(!userAvailable || !(await bcrypt.compare(password, userAvailable.password)) ){
     if(!userAvailable){
-        res.status(400)
+        res.status(404)
         throw new Error("This User doesn't exist. Please enter correct email.")
     }else if(password!==confirmPassword){
-        res.status(400)
+        res.status(409)
         throw new Error("Both Passoword & Confirm Password should match.")   
     }else{
 
@@ -111,8 +111,10 @@ const forgetPass = asyncHandler( async (req, res)=>{
                 );
 
                 if (updatedUser) {
+                    res.status(200).send(updatedUser);
                     console.log('User updated successfully:', updatedUser);
                 } else {
+                    res.status(404).send("User not found")
                     console.log('User not found');
                 }
     }
@@ -121,8 +123,13 @@ const forgetPass = asyncHandler( async (req, res)=>{
 
 
 const currentUser = asyncHandler( async (req, res)=>{
-    res.send(req.user)
-    console.log(req.user)
+    
+    let userid =  req.user.id
+    let user = await User.findById(userid)
+    res.send(user)
+
+    // res.send(req.user)
+    // console.log(req.user)
     // res.send("Getting User info")
 })
 

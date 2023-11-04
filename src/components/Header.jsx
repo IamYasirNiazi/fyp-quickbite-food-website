@@ -1,15 +1,16 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {Container, Row, Col, NavLink} from 'reactstrap'
 import logo from '../assets/images/logo.png'
 // import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+// import { useDispatch, useSelector } from 'react-redux'
 import { cartUiActions } from '../store/cartSlice/cartUiSlice'
 
 const Header = () => {
 
-    const totalQuantity = useSelector(state=>state.cart.totalQuantity);
-    const cartQuantityLocalStorage = JSON.parse(localStorage.getItem('cartProducts')).totalQuantity
+    // const totalQuantity = useSelector(state=>state.cart.totalQuantity);
+    const cartQuantityLocalStorage = JSON.parse(localStorage.getItem('cartProducts')).totalQuantity;
 
 
     const dispatch = useDispatch()
@@ -21,7 +22,7 @@ const Header = () => {
     const [signUpData, setSignUpData] = useState({fname:'', lname:'', email:'', password:''});
     const [signInData, setSignInData] = useState({email:'', password:''});
     const [forgetPassData, setForgetPassData] = useState({email:'', password:'', confirmPassword:''});
-    const [currentUser, setCurrentUser] = useState({id: '', email: '', name: ''});
+    const [currentUser, setCurrentUser] = useState({user: ''});
     const refCloseSignup = useRef(null);
     const refCloseLogin = useRef(null);
     const refCloseForgetPass = useRef(null);
@@ -43,6 +44,15 @@ const Header = () => {
       //   'Authorization': 'Bearer kfjdklfjkfjdlfkjdlfkdjflkdjfkldfjlfk'
       },
       body: JSON.stringify({fname: signUpData.fname, lname: signUpData.lname, email: signUpData.email, password: signUpData.password})
+    }).then(response=>{
+        if(response.ok===true){
+          alert("User is Registered Successfully.")
+        }else if(response.status===409){
+          alert("Error! User is already Registered. Please try with new email.")
+        }
+    }).catch(error=>{
+      alert(error)
+      console.error(error)
     })
 
     setSignUpData({fname:'', lname:'', email:'', password:''})
@@ -78,7 +88,27 @@ const Header = () => {
       //   'Authorization': 'Bearer kfjdklfjkfjdlfkjdlfkdjflkdjfkldfjlfk'
       },
       body: JSON.stringify({email: signInData.email, password: signInData.password})
-    })
+    }).then(response=>{
+    
+      if(response.status==401){
+        alert("Email or Password is Wrong. Please enter Correct Credentials.")
+    
+      }else if(response.status==400){
+        alert("Error! All Fields are mandatory")
+    
+      }else if(response.status==200){
+        alert("Success! User is Logged in Successfully.")
+      }
+
+      return response.json()
+    
+    }).then(data=>{
+      localStorage.setItem('token', data)
+      currentUserCheck()
+    }).catch(error=>{
+    alert("Error", error)
+    console.error(error)
+  })
 
     setSignInData({fname:'', lname:'', email:'', password:''})
     refCloseLogin.current.click();
@@ -86,13 +116,9 @@ const Header = () => {
     // if(res){
     //   alert("User Logged In Successfully");
     // }
+  
+  }
 
-    const authToken = await res.json()
-    console.log("User is logged successfully", authToken)
-    localStorage.setItem('token', authToken)
-    currentUserCheck()
-
-    }
 
 
     const currentUserCheck = async ()=>{
@@ -107,13 +133,21 @@ const Header = () => {
           }
         })
 
-        const result = await userLoggedIn.json()
-        console.log(result)
+        const resultApi = await userLoggedIn.json()
+        // console.log(resultApi)
   
-        setCurrentUser({id: result.id, email: result.email, name: result.name})
-        console.log(currentUser)
+        setCurrentUser({resultApi})
+        // console.log(currentUser.resultApi._id)
 
     }
+
+
+    useEffect(() => {
+      if(localStorage.getItem("token")){
+        currentUserCheck()
+      }
+    }, [])
+    
 
     
     // useEffect(() => {
@@ -150,18 +184,34 @@ const Header = () => {
     //   'Authorization': 'Bearer kfjdklfjkfjdlfkjdlfkdjflkdjfkldfjlfk'
     },
     body: JSON.stringify({email: forgetPassData.email, password: forgetPassData.password, confirmPassword: forgetPassData.confirmPassword})
-  })
+  }).then(response=>{
+    
+    if(response.status==200){
+      alert("Success! Password Updated Successfully.")
+  
+    }else if(response.status==400){
+      alert("Error! All Fields are mandatory.")
+  
+    }else if(response.status==409){
+      alert("Error! Both Password and Confirm Password should match.")
+  
+    }else if(response.status==404){
+      alert("Error! This User not exist. Please try with correct email.")
+    }
+
+    return response.json()
+  
+  }).catch(error=>{
+  alert("Error", error)
+  console.error(error)
+})
 
   setForgetPassData({fname:'', lname:'', email:'', password:'', confirmPassword:''})
   refCloseForgetPass.current.click()
 
-  // if(res){
-  //   alert("User Registered Successfully");
-  // }
   
-  const result = await res.json()
-
-  console.log("User Password successfully changed.", result)
+  // const result = await res.json()
+  // console.log("User Password successfully changed.", result)
 
   }
 
@@ -231,7 +281,7 @@ const Header = () => {
                         <div>
                             {/* {currentUser.email && <h6>Hi, {(currentUser.email).charAt(0).toUpperCase() + (currentUser.email).slice(1).toLowerCase()}</h6>} */}
                             {/* {currentUser.name && <h6>Hi, {(currentUser.name).charAt(0).toUpperCase() + (currentUser.name).slice(1).toLowerCase()}</h6>} */}
-                            { currentUser.email && <div className="profile">
+                            { currentUser.resultApi && <div className="profile">
                               <i className="ri-user-line profile-icon" id="profile-icon" onClick={activeMenu}></i>
                               <ul className='submenu' id='profile-sub-menu'>
                                 <li><Link to={`/profile`}>Profile</Link></li>
@@ -244,8 +294,8 @@ const Header = () => {
                               <i className="ri-shopping-bag-line cart" onClick={toggleCart}></i>
                               <span className='notify'>{cartQuantityLocalStorage}</span>
                             </div>
-                            {!currentUser.email && <button className='btn' data-bs-toggle="modal" data-bs-target="#exampleModalSignIn">Log In</button>}   
-                            {currentUser.email && <button className='btn' onClick={logoutFunc}>Log Out</button>}   
+                            {!currentUser.resultApi && <button className='btn' data-bs-toggle="modal" data-bs-target="#exampleModalSignIn">Log In</button>}   
+                            {currentUser.resultApi && <button className='btn' onClick={logoutFunc}>Log Out</button>}   
                         </div>
                         <i className="ri-menu-fill hamburger"></i>
 

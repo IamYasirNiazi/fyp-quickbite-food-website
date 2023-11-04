@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler")
 const Order = require("../models/HistoryModel")
 
 
+
 const makeOrder = asyncHandler( async (req, res)=>{
 
     const { name, email, address, city, phone, product, quantity, price, total } = req.body
@@ -12,7 +13,7 @@ const makeOrder = asyncHandler( async (req, res)=>{
     }
 
     const user = await Order.create({
-        name, email, address, city, phone, product, quantity, price, total
+        name, email, address, city, phone, product, quantity, price, total, user: req.user.id
     })
 
     res.status(201).send(`Order created Successfully. Order ID is ${user._id}`)
@@ -31,26 +32,40 @@ const makeOrder = asyncHandler( async (req, res)=>{
 
 const history = asyncHandler( async (req, res)=>{
 
-    const { id } = req.body
+    const { user } = req.body;
 
-    if( !id){
+    if(!user){
         res.status(400)
-        throw new Error("Please Login First")
+        throw new Error("User Id required")
     }
 
-    const history = await Order.findOne({_id})
+    const historyDB = await Order.find({user})
+    res.status(200).send(historyDB)
+
+    // if(id!==historyDB){
+    //     res.status(400)
+    //     throw new Error("No History Found.")
+    
+    // }else{
+    
+    //     res.status(200).send(historyDB);
+    //     console.log("Showing History");
+    // }
 
     // res.status(201).send(`Order created Successfully. Order ID is ${user._id}`)
 
-    if(!history){
-        res.send(400)
-        throw new Error("No History Found.")
-    }
+    // if(!history){
+    //     res.send(400)
+    //     throw new Error("No History Found.")
+    // }
 
 
     // res.send(`Register the User`)
-    console.log("History controller running.")
+    // console.log("History controller running.")
 })
+
+
+
 
 
 module.exports = {makeOrder, history}

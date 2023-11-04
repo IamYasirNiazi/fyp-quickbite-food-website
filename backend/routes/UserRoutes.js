@@ -13,8 +13,8 @@ const validateToken = require("../middleware/validateToken")
     
     router.get('/current', validateToken , currentUser)
     
-    router.post('/make-order', makeOrder)
+    router.post('/make-order', validateToken, makeOrder)
 
-    router.get('/history', history)
+    router.post('/history', validateToken, history)
     
 module.exports = router

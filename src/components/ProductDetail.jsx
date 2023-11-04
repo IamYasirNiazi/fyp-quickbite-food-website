@@ -144,7 +144,7 @@ const ProductDetail = () => {
                           </div> */}
     
                     <div className="price fw-bold">
-                      <p>Price:&ensp;${data.price}</p>
+                      <p>Price:&ensp;Rs. {data.price}</p>
                     </div>
     
                     {/* <div className="customize d-flex flex-column align-items-start">
@@ -219,7 +219,7 @@ const ProductDetail = () => {
                                   <img src={data.image01} className="img-fluid" alt="" />
                                   <div className="content">
                                     <h5>{data.title}</h5>
-                                    <h4>$ {data.price}</h4>
+                                    <h4>Rs. {data.price}</h4>
                                     <button className="btn">Order now</button>
                                   </div>
                                 </div>

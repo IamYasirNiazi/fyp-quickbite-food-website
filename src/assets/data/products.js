@@ -24,13 +24,13 @@ import image25 from '../images/drink5.png'
 const products = [
     {
         id: 1,
-        title: "Pepperoni Pizza",
+        title: "Spicy Pizza",
         desc: "Extra-virgin olive oil, garlic, onions, mushrooms and green olives.",
         image01: image01,
         image02: image02,
         image03: image03,
         category: "Pizza", 
-        price: 20
+        price: 600
     },
 
     {
@@ -41,150 +41,150 @@ const products = [
         image02: image03,
         image03: image04,
         category: "Pizza", 
-        price: 20
+        price: 800
     },
 
     {
         id: 3,
-        title: "Pepperoni Pizza",
+        title: "Chicken Pizza",
         desc: "Extra-virgin olive oil, garlic, onions, mushrooms and green olives.",
         image01: image03,
         image02: image04,
         image03: image05,
         category: "Pizza", 
-        price: 20
+        price: 900
     },
 
     {
         id: 4,
-        title: "Pepperoni Pizza",
+        title: "Pepper Pizza",
         desc: "Extra-virgin olive oil, garlic, onions, mushrooms and green olives.",
         image01: image04,
         image02: image05,
         image03: image01,
         category: "Pizza", 
-        price: 20
+        price: 1200
     },
 
     {
         id: 5,
-        title: "Pepperoni Pizza",
+        title: "Lasani Pizza",
         desc: "Extra-virgin olive oil, garlic, onions, mushrooms and green olives.",
         image01: image05,
         image02: image03,
         image03: image02,
         category: "Pizza", 
-        price: 20
+        price: 1500
     },
 
     {
         id: 6,
-        title: "Pepperoni Burger",
+        title: "Lasani Burger",
         desc: "Extra-virgin olive oil, garlic, onions, mushrooms and green olives.",
         image01: image11,
         image02: image12,
         image03: image13,
         category: "Burger", 
-        price: 20
+        price: 500
     },
 
     {
         id: 7,
-        title: "Pepperoni Burger",
+        title: "KFC Burger",
         desc: "Extra-virgin olive oil, garlic, onions, mushrooms and green olives.",
         image01: image12,
         image02: image13,
         image03: image14,
         category: "Burger", 
-        price: 20
+        price: 800
     },
 
     {
         id: 8,
-        title: "Pepperoni Burger",
+        title: "Zinger Burger",
         desc: "Extra-virgin olive oil, garlic, onions, mushrooms and green olives.",
         image01: image13,
         image02: image14,
         image03: image15,
         category: "Burger", 
-        price: 20
+        price: 400
     },
 
     {
         id: 9,
-        title: "Pepperoni Burger",
+        title: "French Burger",
         desc: "Extra-virgin olive oil, garlic, onions, mushrooms and green olives.",
         image01: image14,
         image02: image15,
         image03: image11,
         category: "Burger", 
-        price: 20
+        price: 1500
     },
 
     {
         id: 10,
-        title: "Pepperoni Burger",
+        title: "Chicken Burger",
         desc: "Extra-virgin olive oil, garlic, onions, mushrooms and green olives.",
         image01: image15,
         image02: image12,
         image03: image11,
         category: "Burger", 
-        price: 20
+        price: 900
     },
 
     {
         id: 11,
-        title: "Pepperoni Drink",
+        title: "Lemonade Drink",
         desc: "Extra-virgin olive oil, garlic, onions, mushrooms and green olives.",
         image01: image21,
         image02: image22,
         image03: image23,
         category: "Drink", 
-        price: 20
+        price: 300
     },
 
     {
         id: 12,
-        title: "Pepperoni Drink",
+        title: "Watermelon Drink",
         desc: "Extra-virgin olive oil, garlic, onions, mushrooms and green olives.",
         image01: image22,
         image02: image23,
         image03: image24,
         category: "Drink", 
-        price: 20
+        price: 400
     },
 
     {
         id: 13,
-        title: "Pepperoni Drink",
+        title: "Ginger Drink",
         desc: "Extra-virgin olive oil, garlic, onions, mushrooms and green olives.",
         image01: image23,
         image02: image24,
         image03: image25,
         category: "Drink", 
-        price: 20
+        price: 600
     },
 
     {
         id: 14,
-        title: "Pepperoni Drink",
+        title: "Carrot Drink",
         desc: "Extra-virgin olive oil, garlic, onions, mushrooms and green olives.",
         image01: image24,
         image02: image25,
         image03: image21,
         category: "Drink", 
-        price: 20
+        price: 500
     },
 
     {
         id: 15,
-        title: "Pepperoni Drink",
+        title: "Apple Drink",
         desc: "Extra-virgin olive oil, garlic, onions, mushrooms and green olives.",
         image01: image25,
         image02: image23,
         image03: image21,
         category: "Drink", 
-        price: 20
+        price: 700
     },
 ]
 

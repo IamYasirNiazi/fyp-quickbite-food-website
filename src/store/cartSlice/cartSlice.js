@@ -96,7 +96,16 @@ const cartSlice = createSlice({
 
             localStorage.setItem('cartProducts', JSON.stringify(state))
 
+        },
+
+        removeOrders(state){
+
+            state = initialState;
+            localStorage.setItem('cartProducts', '');
+            localStorage.setItem('cartProducts', JSON.stringify(state));
         }
+
+
     }
     
 })

@@ -14,7 +14,7 @@ const Menu = ({item}) => {
             <div className='our-menu__container__row__col__main__slider__product item'>
                 <div className='text'>
                     <h5>{title}</h5>
-                    <h6><span>$</span>{price}</h6>
+                    <h6><span>Rs.</span> {price}</h6>
                     <a href="/">Order Now <i class="ri-arrow-drop-right-line"></i></a>
                 </div>
                 <div className='image'>

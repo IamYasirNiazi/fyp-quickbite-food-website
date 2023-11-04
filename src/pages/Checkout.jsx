@@ -1,109 +1,3 @@
-// import React from 'react'
-// import Header from '../components/Header'
-// import Footer from '../components/Footer'
-// import Carts from '../components/Carts'
-// import { useSelector } from 'react-redux'
-// import TitleSection from '../components/TitleSection'
-
-
-
-// const Checkout = () => {
-
-//   const isVisible = useSelector((state)=> state.cartUi.cartIsVisible)
-//   const totalAmount = useSelector((state)=> state.cart.totalAmount)
-
-//   return (
-//     <>
-//         <Header />
-//         {
-//           isVisible && <Carts />
-//         }
-
-//         <TitleSection title ="Checkout Details" />
-         
-//         <div class="payment-details">
-//           <div class="payment-details__container container">
-//             <h4>Payment Details</h4>
-//               <div class="payment-details__container__row row">
-
-//                   <div class="payment-details__container__row__col1 col col-md-10 col1">
-                      
-//                       <form action="" method='POST'>
-//                         <div class="main">
-//                         <div class="email">
-//                             <label class="w-100">
-//                                 <div>Name</div>
-//                                 <div>
-//                                   <input type="text" class="w-100" />
-//                                 </div>
-//                             </label>
-//                           </div>
-//                           <div class="email">
-//                             <label class="w-100">
-//                                 <div>Email</div>
-//                                 <div>
-//                                   <input type="email" class="w-100" />
-//                                 </div>
-//                             </label>
-//                           </div>
-//                           <div class="email">
-//                             <label class="w-100">
-//                                 <div>Address</div>
-//                                 <div>
-//                                   <input type="text" class="w-100" />
-//                                 </div>
-//                             </label>
-//                           </div>
-//                           <div class="credit">
-//                             <label class="w-100">
-//                                 <div>Credit Card Number</div>
-//                                 <input type="text" class="w-100" />
-//                             </label>
-//                           </div>
-//                           <div class="date d-flex align-items-start justify-content-start gap-3">
-//                             <label>
-//                                 <div>CSV</div>
-//                                 <input type="text" />
-//                             </label>
-//                             <label>
-//                                 <div>Exp Date</div>
-//                                 <input type="date" />
-//                             </label>
-//                           </div> 
-//                           <div class="total">
-//                             <div>
-//                               <span>Total Amount</span>
-//                               <span class="dollar">${totalAmount}</span>
-//                             </div>
-//                           </div>
-//                           <button class="btn-payment">Submit Order</button>
-//                         </div>
-//                       </form>
-
-//                   </div>
-                  
-//               </div>
-//           </div>
-//         </div>
-        
-
-//         <Footer />
-//     </>
-    
-//   )
-// }
-
-// export default Checkout
-
-
-
-
-
-
-
-
-
-
 import React, { useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -111,7 +5,9 @@ import Carts from '../components/Carts'
 import { useSelector } from 'react-redux'
 import TitleSection from '../components/TitleSection'
 import { useEffect } from 'react'
-
+import { useNavigate } from 'react-router-dom'
+import { useDispatch} from 'react-redux'
+import { cartActions } from '../store/cartSlice/cartSlice'
 
 
 const Checkout = () => {
@@ -119,14 +15,32 @@ const Checkout = () => {
   const isVisible = useSelector((state)=> state.cartUi.cartIsVisible)
   const totalAmount = useSelector((state)=> state.cart.totalAmount)
   const product = useSelector((state)=> state.cart.cartItems)
+  const navigateHistory = useNavigate()
+  const dispatch = useDispatch()
+  
+  const emptyCart = ()=>{
+      dispatch(cartActions.removeOrders())
+  }
 
-  console.log(product)
+  // console.log(product)
 
 
   const [allProducts, setAllProducts] = useState([]);
   const [quantity, setQuantity] = useState([]);
   const [price, setPrice] = useState([]);
   const [total, setTotal] = useState([]);
+
+
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(localStorage.getItem("token")===''){
+      navigate('/')
+      alert("Please Login First.")
+    }
+  }, [])
+  
 
   useEffect(() => {
     const mappedData = product.map((prdct)=>{
@@ -187,18 +101,24 @@ const Checkout = () => {
 
 
   const submitOrder = async ()=>{
+    const token = localStorage.getItem('token')
     const result =  await fetch(`http://127.0.0.1:5001/api/user/make-order`, {
       method: 'POST',
       headers:{
         'Content-Type': 'application/json',
-      //   'Authorization': 'Bearer kfjdklfjkfjdlfkjdlfkdjflkdjfkldfjlfk'
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({name: order.name, email: order.email, address: order.address, city: order.city, phone: order.phone, product: productString, quantity: quantityString, price: priceString, total: totalAmount})
-    });
-
-    // const history = await result.json()
-
-    // console.log("checkout", history)
+    }).then((response)=>{
+      // console.log(response)
+      if(response.status==201){
+        emptyCart();
+        alert("Success! Thanks for Ordering Food. You will receive your Order within 30mins. We follow Cash on Delivery method.");
+        navigateHistory('/')
+      }
+    }).catch((error)=>{
+      console.error(error)
+    })
     
   }
 
@@ -216,7 +136,7 @@ const Checkout = () => {
           <div class="payment-details__container container">
             {/* <h4>Payment Details</h4> */}
               <div class="payment-details__container__row row">
-                  {/* <form onSubmit={submitOrder} method='POST'> */}
+                  <form>
 
                     <div class="payment-details__container__row__col1 col col-md-7 col1">
                         
@@ -272,7 +192,7 @@ const Checkout = () => {
                             <div class="total">
                               <div>
                                 <span>Total Amount</span>
-                                <span class="dollar">${totalAmount}</span>
+                                <span class="dollar">Rs/- {totalAmount}</span>
                               </div>
                             </div>
                             <button class="btn-payment" onClick={submitOrder}>Submit Order</button>
@@ -280,7 +200,7 @@ const Checkout = () => {
 
                     </div>
 
-                  {/* </form> */}
+                  </form>
               </div>
           </div>
         </div>

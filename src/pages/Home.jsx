@@ -19,6 +19,10 @@ const Home = () => {
 
   const isVisible = useSelector((state)=> state.cartUi.cartIsVisible)
 
+  if(!localStorage.getItem("token")){
+    localStorage.setItem("token", '')
+  }
+
   return (
     <>
         <Hero />

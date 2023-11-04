@@ -37,7 +37,7 @@ const deleteItem = ()=>{
             <h6>{title}</h6>
             <div className="quantity-price">
                 <span>{quantity}x</span>
-                <span className="price">${totalPrice}</span>
+                <span className="price">{totalPrice}</span>
             </div>
             <div className="add-del">
               <span class="del">

@@ -32,7 +32,7 @@ const ProductCard = ({item}) => {
           {desc}
         </p>
         <div className="price-and-order">
-            <h6>${price}.00</h6>
+            <h6>Rs. {price}</h6>
             <button className="btn btn-order" onClick={addToCart}>Add to Cart</button>
         </div>
       </div>

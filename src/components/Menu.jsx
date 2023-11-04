@@ -18,7 +18,7 @@ const Menu = () => {
                     <Col className='our-menu__container__row__col col col-md-12 col-lg-12'>
                     <div className='our-menu__container__row__col__main'>
                         <div className='our-menu__container__row__col__main__content'>
-                            <h6>Trending</h6>
+                            <h6 id="trending">Trending</h6>
                             <h2>Menu That Always<br/>Make You Fall In Love</h2>
                             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum explicabo ipsam et sit quibusdam voluptates commodi totam dolorem ea accusantium.</p>
                         </div>
