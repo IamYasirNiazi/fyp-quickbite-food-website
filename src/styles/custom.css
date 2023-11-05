@@ -1961,3 +1961,33 @@ section {
 .profile-user .container .row .col .main-wrapper .name div span:nth-child(1), .profile-user .container .row .col .main-wrapper .email div span:nth-child(1), .profile-user .container .row .col .main-wrapper .password div span:nth-child(1) {
   font-weight: 600;
 }
+
+.whatsapp-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 35px;
+  right: 40px;
+  background-color: #F54749;
+  border-radius: 50px;
+  font-size: 30px;
+  box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.1764705882);
+  z-index: 100;
+  color: #fff;
+  transition: 0.2s all ease-in;
+}
+.whatsapp-icon:hover {
+  background: #2f2f2f;
+}
+
+/* for mobile */
+@media screen and (max-width: 767px) {
+  .whatsapp-icon {
+    font-size: 25px;
+    width: 50px !important;
+    height: 50px !important;
+  }
+}
